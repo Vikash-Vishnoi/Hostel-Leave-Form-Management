@@ -1,0 +1,102 @@
+/* RRU Colors */
+:root {
+  --rru-blue: #0c4da1;
+  --rru-dark-blue: #0a3d7a;
+  --rru-gold: #f9a51a;
+}
+
+/* Header with enhanced specificity and !important flags */
+header.rru-header {
+  background: white !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+  padding: 10px 0 !important;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+/* Header Element Reset */
+header.rru-header * {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+  line-height: normal !important;
+}
+
+header.rru-header .header-container {
+  width: 90% !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+header.rru-header .logo {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  text-decoration: none !important;
+}
+
+header.rru-header .logo img {
+  height: 50px !important;
+  width: auto !important;
+}
+
+header.rru-header .logo-text h1 {
+  margin: 0 !important;
+  font-size: 1.2rem !important;
+  color: var(--rru-blue) !important;
+  font-weight: bold !important;
+}
+
+header.rru-header .logo-text p {
+  margin: 0 !important;
+  font-size: 0.8rem !important;
+  color: var(--rru-blue) !important;
+  font-weight: normal !important;
+}
+
+/* Logout Button Styles with enhanced specificity */
+header.rru-header .logout-button {
+  background-color: var(--rru-blue) !important;
+  color: white !important;
+  border: none !important;
+  padding: 10px 15px !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  font-size: 1em !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+  margin-left: 20px !important;
+}
+
+header.rru-header .logout-button:hover {
+  background-color: white !important;
+  color: var(--rru-blue) !important;
+  border: 2px solid var(--rru-blue) !important;
+}
+
+/* Main Navigation */
+header.rru-header .main-nav ul {
+  margin-right: 20px !important;
+  padding: 0 !important;
+  list-style: none !important;
+  display: flex !important;
+  gap: 20px !important;
+}
+
+header.rru-header .main-nav {
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  header.rru-header .header-container {
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+  
+  header.rru-header .main-nav {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}

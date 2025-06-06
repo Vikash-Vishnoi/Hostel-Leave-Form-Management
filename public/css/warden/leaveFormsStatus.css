@@ -1,0 +1,363 @@
+/* ===== RRU Color Scheme ===== */
+:root {
+  --rru-blue: #0c4da1;
+  --rru-dark-blue: #0a3d7a;
+  --rru-gold: #f9a51a;
+  --rru-light: #f5f7fa;
+  --rru-dark: #2c3e50;
+  --success-green: #28a745;
+  --error-red: #dc3545;
+  --pending-orange: #fd7e14;
+  --gray-medium: #6c757d;
+  --gray-light: #e9ecef;
+}
+
+/* ===== Base Styles ===== */
+body {
+  background-color: var(--rru-light);
+  color: var(--rru-dark);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-container {
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.profile-header h1 {
+  color: var(--rru-dark);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ===== Profile Picture Styles ===== */
+.profile-pic-container {
+  width: 100px; /* Increase the width */
+  height: 100px; /* Increase the height */
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+}
+
+.profile-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-pic-default {
+  font-size: 48px; /* Increase the size of the default icon */
+  color: #888;
+}
+
+/* ===== Leave Cards Container ===== */
+.leave-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+/* ===== Leave Card Styles ===== */
+.leave-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  transition: transform 0.2s;
+}
+
+.leave-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--gray-light);
+}
+
+.card-header h3 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.uid {
+  font-size: 0.9rem;
+  color: var(--gray-medium);
+}
+
+.status-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status-badge.pending {
+  background-color: #fff3cd;
+  color: var(--pending-orange);
+}
+
+.status-badge.approved {
+  background-color: #d4edda;
+  color: var(--success-green);
+}
+
+.status-badge.declined {
+  background-color: #f8d7da;
+  color: var(--error-red);
+}
+
+/* ===== Card Grid Layout ===== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-section {
+  margin-bottom: 0;
+}
+
+.card-section h4 {
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+  color: var(--rru-blue);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+}
+
+.card-section p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.card-section strong {
+  color: var(--rru-dark);
+}
+
+/* ===== Card Footer ===== */
+.card-footer {
+  padding-top: 1rem;
+  border-top: 1px solid var(--gray-light);
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--gray-medium);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.card-footer p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ===== Action Buttons ===== */
+.action-buttons {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.approve-form, .decline-form {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Decline Reason Textarea */
+.decline-form .form-control {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  resize: vertical;
+  min-height: 80px;
+  margin-bottom: 1rem;
+}
+
+.decline-form .form-control:focus {
+  border-color: var(--rru-blue);
+  box-shadow: 0 0 0 3px rgba(12, 77, 161, 0.1);
+  outline: none;
+}
+
+.btn-update {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.8rem 1.5rem;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  justify-content: center;
+}
+
+.btn-update.success {
+  background: var(--success-green);
+}
+
+.btn-update.success:hover {
+  background: #218838;
+  transform: translateY(-2px);
+}
+
+.btn-update.danger {
+  background: var(--error-red);
+}
+
+.btn-update.danger:hover {
+  background: #c82333;
+  transform: translateY(-2px);
+}
+
+/* ===== Form Elements ===== */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  min-height: 80px;
+  resize: vertical;
+}
+
+.form-control:focus {
+  border-color: var(--rru-blue);
+  box-shadow: 0 0 0 3px rgba(12, 77, 161, 0.1);
+  outline: none;
+}
+
+/* ===== No Leaves Message ===== */
+.no-leaves {
+  text-align: center;
+  color: var(--gray-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+}
+
+/* ===== Error Alert ===== */
+.alert-error {
+  color: #ff0000; /* Red color for the error text */
+  background-color: #ffe6e6; /* Light red background */
+  border: 1px solid #ff0000; /* Red border */
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert-error i {
+  color: #ff0000; /* Red color for the icon */
+}
+
+/* ===== Modal Styles ===== */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 80%;
+  max-height: 80%;
+  border-radius: 8px;
+}
+
+.modal-content:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .profile-container {
+    margin: 1rem auto;
+    padding: 0 1rem;
+  }
+  
+  .leave-cards-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .approve-form, .decline-form {
+    min-width: 100%;
+  }
+}

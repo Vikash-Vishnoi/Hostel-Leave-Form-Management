@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/header.ejs') %>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/warden/leaveFormsStatus.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+
+</head> 
+
+ 
+<body>
+  <div class="profile-container">
+    <!-- Page Header -->
+
+    <div class="profile-header">
+      <h1>
+        <i class="fas fa-clipboard-list"></i>
+        <%= title %>
+      </h1>
+    </div>
+
+    <% if (error) { %>
+      <div class="alert alert-error">
+        <i class="fas fa-exclamation-circle"></i> <%= error %>
+      </div>
+    <% } %>
+
+    <% if (leaveForms.length === 0) { %>
+      <div class="profile-form">
+        <p class="no-leaves">
+          <i class="fas fa-info-circle"></i>
+          No <%= title %> found.
+        </p>
+      </div>
+    <% } else { %>
+      <div class="leave-cards-container">
+        <% leaveForms.forEach(leave => { %>
+          <div class="leave-card">
+            <div class="card-header">
+              <div class="student-profile">
+                <div class="profile-pic-container">
+                  <% if (leave.student.profilePic) { %>
+                    <img src="<%= leave.student.profilePic %>" alt="Profile Picture" class="profile-pic" onclick="showModal('<%= leave.student.profilePic %>')">
+                  <% } else { %>
+                    <div class="profile-pic-default">
+                      <i class="fas fa-user"></i>
+                    </div>
+                  <% } %>
+                </div>
+                <div class="student-info">
+                  <h3><%= leave.student.fullName %></h3>
+                  <p class="uid">UID: <%= leave.student.uidNumber %></p>
+                </div>
+              </div>
+              <span class="status-badge <%= leave.status %>">
+                <%= leave.status.charAt(0).toUpperCase() + leave.status.slice(1) %>
+              </span>
+            </div>
+
+            <div class="card-grid">
+
+              <div class="card-section">
+                <h4><i class="fas fa-id-card"></i> Student Details</h4>
+                <p><strong>Enrollment:</strong> <%= leave.student.enrollmentNumber %></p>
+                <p><strong>Gender:</strong> <%= leave.student.gender %></p>
+                <p><strong>School:</strong> <%= leave.student.school %></p>
+                <p><strong>Course:</strong> <%= leave.student.course %></p>
+              </div>
+
+              <div class="card-section">
+                <h4><i class="fas fa-home"></i> Hostel Details</h4>
+                <p><strong>Hostel:</strong> <%= leave.student.blockHostelName %></p>
+                <p><strong>Room No:</strong> <%= leave.student.roomNo %></p>
+              </div>
+
+              <div class="card-section">
+                <h4><i class="fas fa-calendar-alt"></i> Leave Details</h4>
+                <p><strong>From:</strong> <%= leave.from.toDateString() %></p>
+                <p><strong>To:</strong> <%= leave.to.toDateString() %></p>
+                <p><strong>Destination:</strong> <%= leave.goingTo %></p>
+                <p><strong>Parent Contact:</strong> <%= leave.parentContact %></p>
+              </div>
+
+              <div class="card-section">
+                <h4><i class="fas fa-comment-alt"></i> Additional Information</h4>
+                <p><strong>Reason:</strong> <%= leave.reason %></p>
+                <% if (leave.studentComment) { %>
+                  <p><strong>Student Comment:</strong> <%= leave.studentComment %></p>
+                <% } %>
+                <% if (leave.status === 'declined') { %>
+                  <p><strong>Decline Reason:</strong> <%= leave.declinedReason || 'N/A' %></p>
+                <% } %>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <p><i class="fas fa-user-shield"></i> <strong>Processed By:</strong> <%= leave.approvedBy ? leave.approvedBy.fullName : 'N/A' %></p>
+              <p><i class="fas fa-clock"></i> <strong>Processed At:</strong> <%= leave.approvedOrDeclinedAt ? leave.approvedOrDeclinedAt.toDateString() : 'N/A' %></p>
+            </div>
+
+            <% if (user.role === 'warden' && leave.status === 'pending' && title !== 'All Leave Forms') { %>
+              <div class="action-buttons">
+                <!-- Approve Form -->
+                <form action="/warden/pending-leave-forms/<%= leave._id %>/approved" method="POST" class="approve-form">
+                  <button type="submit" class="btn-update success">
+                    <i class="fas fa-check"></i> Approve
+                  </button>
+                </form>
+
+                <!-- Decline Form -->
+                <form action="/warden/pending-leave-forms/<%= leave._id %>/declined" method="POST" class="decline-form">
+                  <textarea 
+                    name="declinedReason" 
+                    class="form-control" 
+                    placeholder="Enter reason for declining the leave" 
+                    maxlength="500" 
+                    required>
+                  </textarea>
+                  <button type="submit" class="btn-update danger">
+                    <i class="fas fa-times"></i> Decline
+                  </button>
+                </form>
+              </div>
+            <% } %>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+
+  <!-- Modal for Enlarged Profile Picture -->
+  <div id="leaveFormModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage">
+  </div>
+
+  <script>
+    function showModal(imageSrc) {
+      const modal = document.getElementById("leaveFormModal");
+      const modalImage = document.getElementById("modalImage");
+      modal.style.display = "block";
+      modalImage.src = imageSrc;
+    }
+
+    function closeModal() {
+      const modal = document.getElementById("leaveFormModal");
+      modal.style.display = "none";
+    }
+  </script>
+</body>
+</html>
+<%- include('../partials/footer.ejs') %>

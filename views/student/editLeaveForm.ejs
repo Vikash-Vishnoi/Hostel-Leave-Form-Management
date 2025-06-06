@@ -1,0 +1,149 @@
+<%- include('../partials/header.ejs') %>
+
+<link rel="stylesheet" href="/css/student/editLeaveForm.css">
+
+<title><%= title %></title>
+<div class="edit-form-container">
+  <div class="form-header">
+    <h2><i class="fas fa-edit"></i> Edit Leave Application</h2>
+    <div class="form-subheader">
+      <span class="status-badge <%= leaveForm.status %>">
+        <i class="fas fa-<%= 
+          leaveForm.status === 'approved' ? 'check-circle' : 
+          leaveForm.status === 'declined' ? 'times-circle' : 'hourglass-half' 
+        %>"></i>
+        <%= leaveForm.status.toUpperCase() %>
+      </span>
+    </div>  
+  </div>
+
+  <% if (error) { %>
+    <div class="alert alert-error">
+      <i class="fas fa-exclamation-circle"></i> <%= error %>
+    </div>
+  <% } %>
+
+  <form action="/student/edit-leave-form/<%= leaveForm._id %>" method="POST" class="leave-edit-form">
+    <div class="form-grid">
+      <!-- Readonly Student Info -->
+      <div class="form-section readonly-section">
+        <h3><i class="fas fa-user-graduate"></i> Student Information</h3>
+        <div class="form-group">
+          <label for="uidNumber">UID Number</label>
+          <div class="readonly-field">
+            <i class="fas fa-id-card"></i>
+            <span><%= user.uidNumber %></span>
+            <input type="hidden" name="uidNumber" value="<%= user.uidNumber %>">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <div class="readonly-field">
+            <i class="fas fa-user"></i>
+            <span><%= user.fullName %></span>
+            <input type="hidden" name="fullName" value="<%= user.fullName %>">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="blockHostelName">Block/Hostel</label>
+          <div class="readonly-field">
+            <i class="fas fa-building"></i>
+            <span><%= user.blockHostelName %></span>
+            <input type="hidden" name="blockHostelName" value="<%= user.blockHostelName %>">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="roomNo">Room Number</label>
+          <div class="readonly-field">
+            <i class="fas fa-door-open"></i>
+            <span><%= user.roomNo %></span>
+            <input type="hidden" name="roomNo" value="<%= user.roomNo %>">
+          </div>
+        </div>
+      </div>
+
+      <!-- Leave Details -->
+      <div class="form-section">
+        <h3><i class="fas fa-calendar-alt"></i> Leave Details</h3>
+        <div class="form-group">
+          <label for="reason">Reason for Leave</label>
+          <div class="readonly-field">
+            <i class="fas fa-comment"></i>
+            <span><%= leaveForm.reason %></span>
+            <input type="hidden" name="reason" value="<%= leaveForm.reason %>">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="from">From Date</label>
+          <div class="readonly-field">
+            <i class="fas fa-calendar-day"></i>
+            <span><%= new Date(leaveForm.from).toDateString() %></span>
+            <input type="hidden" name="from" value="<%= leaveForm.from.toISOString().split('T')[0] %>">
+          </div>
+        </div>
+        
+        <div class="form-group editable">
+          <label for="to">To Date</label>
+          <div class="input-icon">
+            <input type="date" name="to" id="to" 
+                   value="<%= leaveForm.to.toISOString().split('T')[0] %>" 
+                   required>
+            <i class="fas fa-calendar-day"></i>
+          </div>
+          <input type="hidden" name="originalToDate" value="<%= leaveForm.to.toISOString().split('T')[0] %>">
+        </div>
+        
+        <div class="form-group">
+          <label for="goingTo">Going To (Place)</label>
+          <div class="readonly-field">
+            <i class="fas fa-map-marker-alt"></i>
+            <span><%= leaveForm.goingTo %></span>
+            <input type="hidden" name="goingTo" value="<%= leaveForm.goingTo %>">
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="parentContact">Parent's Contact</label>
+          <div class="readonly-field">
+            <i class="fas fa-phone"></i>
+            <span><%= leaveForm.parentContact %></span>
+            <input type="hidden" name="parentContact" value="<%= leaveForm.parentContact %>">
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Section -->
+      <div class="form-section edit-section">
+        <h3><i class="fas fa-comment-dots"></i> Edit Information</h3>
+        <div class="form-group">
+          <label for="studentComment">Reason for Editing</label>
+          <textarea name="studentComment" id="studentComment" 
+                    placeholder="Please explain why you need to edit this application..." 
+                    maxlength="500" 
+                    required></textarea>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-paper-plane"></i> Submit Changes
+          </button>
+          <a href="/student/leave-form-status" class="btn-cancel">
+            <i class="fas fa-times"></i> Cancel
+          </a>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Set minimum value for "To Date" to today
+  const today = new Date().toISOString().split("T")[0];
+  document.getElementById("to").setAttribute("min", today);
+</script>
+
+<%- include('../partials/footer.ejs') %>

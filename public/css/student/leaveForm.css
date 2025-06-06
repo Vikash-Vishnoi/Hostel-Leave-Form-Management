@@ -1,0 +1,190 @@
+/* ===== RRU Color Scheme ===== */
+:root {
+  --rru-blue: #0c4da1;
+  --rru-dark-blue: #0a3d7a;
+  --rru-gold: #f9a51a;
+  --rru-light: #f5f7fa;
+  --rru-dark: #2c3e50;
+  --success-green: #28a745;
+  --error-red: #dc3545;
+}
+
+/* ===== Form Container ===== */
+.form-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.form-header {
+  background: var(--rru-blue);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-steps {
+  display: flex;
+  gap: 15px;
+}
+
+.step {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  background: rgba(255,255,255,0.2);
+}
+
+.step.active {
+  background: var(--rru-gold);
+  color: var(--rru-dark-blue);
+  font-weight: bold;
+}
+
+/* ===== Form Layout ===== */
+.leave-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.form-section {
+  margin-bottom: 1.5rem;
+}
+
+.form-section h3 {
+  color: var(--rru-blue);
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--rru-light);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ===== Form Elements ===== */
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--rru-dark);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.form-group input:not([readonly]):focus {
+  border-color: var(--rru-blue);
+  box-shadow: 0 0 0 3px rgba(12, 77, 161, 0.1);
+  outline: none;
+}
+
+.form-group input[readonly] {
+  background-color: var(--rru-light);
+  color: #666;
+}
+
+.date-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.input-icon {
+  position: relative;
+}
+
+.input-icon i {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+}
+
+/* ===== Buttons & Actions ===== */
+.form-actions {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.btn-submit {
+  background: var(--rru-blue);
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-submit:hover {
+  background: var(--rru-dark-blue);
+  transform: translateY(-2px);
+}
+
+/* ===== Alerts ===== */
+.alert {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert-error {
+  background: #f8d7da;
+  color: var(--error-red);
+  border-left: 4px solid var(--error-red);
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .date-group {
+    grid-template-columns: 1fr;
+  }
+}

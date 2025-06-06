@@ -1,0 +1,24 @@
+# 1. Create directories (including nested ones)
+mkdir config, controllers, models, middleware, public\css, public\js, public\images, routes, views\partials, views\auth, views\student, views\warden
+
+# 2. Create all files
+New-Item app.js, package.json, .env, `
+    config\db.js, config\passport.js, config\session.js, `
+    controllers\authController.js, controllers\leaveController.js, controllers\wardenController.js, `
+    models\user.js, models\leave.js, models\warden.js, `
+    middleware\auth.js, middleware\errorHandler.js, `
+    public\css\styles.css, public\js\main.js, `
+    routes\authRoutes.js, routes\leaveRoutes.js, routes\wardenRoutes.js, `
+    "views\partials\header.ejs", "views\partials\footer.ejs", "views\partials\alerts.ejs", `
+    "views\auth\login.ejs", "views\auth\register.ejs", `
+    "views\student\dashboard.ejs", "views\student\leaveForm.ejs", "views\student\status.ejs", `
+    "views\warden\approve.ejs", "views\warden\history.ejs", "views\warden\refunds.ejs", `
+    views\error.ejs -ItemType file
+
+# 3. Install dependencies
+
+npm i express mongoose bcrypt jsonwebtoken cookie-parser ejs dotenv connect-flash express-session passport required express-ejs-layouts moment exceljs
+
+
+#google auth
+npm i passport-google-oauth20

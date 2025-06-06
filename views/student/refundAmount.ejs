@@ -1,0 +1,105 @@
+<%- include('../partials/header.ejs') %>
+
+<link rel="stylesheet" href="/css/student/refundAmount.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<title><%= title %></title>
+<div class="refund-container">
+  <div class="refund-header">
+    <h2><i class="fas fa-calculator"></i> Refund Calculation</h2>
+    <div class="refund-summary">
+      <div class="summary-card total-days">
+        <i class="fas fa-calendar-alt"></i>
+        <div>
+          <span>Total Leave Days</span>
+          <h3><%= leaves.reduce((sum, leave) => sum + leave.days, 0) %></h3>
+        </div>
+      </div> 
+      <div class="summary-card total-amount">
+        <i class="fas fa-rupee-sign"></i>
+        <div>
+          <span>Total Refund Amount</span>
+          <h3>₹<%= totalRefund %></h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% if (error) { %>
+    <div class="alert alert-error">
+      <i class="fas fa-exclamation-circle"></i> <%= error %>
+    </div>
+  <% } else if (leaves.length === 0) { %>
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="fas fa-file-alt"></i>
+      </div>
+      <h3>No Approved Leave Applications</h3>
+      <p>You don't have any approved leave applications eligible for refund.</p>
+    </div>
+  <% } else { %>
+    <div class="responsive-table">
+      <table class="refund-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Leave Period</th>
+            <th>Duration</th>
+            <th>Reason</th>
+            <th>Status</th>
+            <th>Refund Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% leaves.forEach((leave, index) => { %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td>
+                <div class="date-range">
+                  <div class="date-item">
+                    <i class="fas fa-calendar-day"></i>
+                    <span><%= new Date(leave.from).toLocaleDateString() %></span>
+                  </div>
+                  <div class="date-item">
+                    <i class="fas fa-arrow-right"></i>
+                    <span><%= new Date(leave.to).toLocaleDateString() %></span>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <span class="days-badge"><%= leave.days %> day<%= leave.days !== 1 ? 's' : '' %></span>
+              </td>
+              <td class="reason-cell">
+                <span><%= leave.reason %></span>
+              </td>
+              <td>
+                <span class="status-badge <%= leave.eligible ? 'eligible' : 'ineligible' %>">
+                  <%= leave.eligible ? 'Eligible' : 'Not Eligible' %>
+                </span>
+              </td>
+              <td class="amount-cell">
+                <% if (leave.eligible) { %>
+                  <span class="refund-amount">₹<%= leave.amount %></span>
+                <% } else { %>
+                  <span class="na-text">-</span>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5" class="grand-total-label">
+              <i class="fas fa-file-invoice-dollar"></i> Grand Total
+            </td>
+            <td class="grand-total-amount">
+              <strong>₹<%= totalRefund %></strong>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  <% } %>
+</div>
+
+<%- include('../partials/footer.ejs') %>

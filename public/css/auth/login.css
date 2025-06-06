@@ -1,0 +1,190 @@
+/* ===== RRU Color Scheme ===== */
+        :root {
+            --rru-blue: #0c4da1;
+            --rru-dark-blue: #0a3d7a;
+            --rru-gold: #f9a51a;
+            --rru-light: #f5f7fa;
+            --rru-dark: #2c3e50;
+            --white: #ffffff;
+            --gray-medium: #6c757d;
+        }
+
+        /* ===== Base Styles ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: var(--rru-light);
+            color: var(--rru-dark);
+            line-height: 1.6;
+        }
+
+        /* ===== Welcome Container ===== */
+        .welcome-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .welcome-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .welcome-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--rru-dark);
+        }
+
+        .welcome-header h1 span {
+            color: var(--rru-blue);
+        }
+
+        /* ===== Auth Container ===== */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0px;
+            width: fit-content;
+            margin: 0 auto;
+        }
+
+        .auth-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .auth-card h2 {
+            color: var(--rru-blue);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .auth-card p {
+            color: var(--rru-dark);
+        }
+
+        .google-auth {
+            margin: 2rem 0;
+        }
+
+        .google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--white);
+            color: var(--rru-dark);
+            border: 1px solid #ddd;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .google-btn:hover {
+            background: #f8f9fa;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .google-btn img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .admin-note {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(12, 77, 161, 0.05);
+            border-radius: 5px;
+            border-left: 4px solid var(--rru-blue);
+        }
+
+        .admin-note p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--rru-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .admin-note i {
+            color: var(--rru-blue);
+        }
+
+        /* ===== Footer ===== */
+        .rru-footer {
+            background: var(--rru-dark-blue);
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-left img {
+            height: 40px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== Alert Error ===== */
+        .alert-error {
+            color: #d9534f;
+            background-color: #f2dede;
+            border: 1px solid #ebccd1;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }

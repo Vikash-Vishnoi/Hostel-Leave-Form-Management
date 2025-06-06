@@ -1,0 +1,143 @@
+/* RRU Colors */
+:root {
+    --rru-blue: #0c4da1;
+    --rru-dark-blue: #0a3d7a;
+    --rru-gold: #f9a51a;
+  }
+  
+  /* Header */
+  .rru-header {
+    background: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 10px 0;
+  }
+  
+  .header-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  
+  .logo img {
+    height: 50px;
+  }
+  
+  .logo-text h1 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--rru-blue);
+  }
+  
+  .logo-text p {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #555;
+  }
+  
+  .main-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .main-nav a {
+    color: var(--rru-blue);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  
+  .main-nav a:hover {
+    color: var(--rru-gold);
+  }
+  
+  /* Footer */
+  .rru-footer {
+    background: var(--rru-dark-blue);
+    color: white;
+    margin-top: 30px;
+    padding: 10px 0;
+  }
+  
+  .footer-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .footer-logo img {
+    height: 40px;
+  }
+  
+  .footer-links {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .footer-links a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .footer-links a:hover {
+    color: var(--rru-gold);
+  }
+  
+  /* Mobile Responsive */
+  @media (max-width: 768px) {
+    .header-container, .footer-container {
+      flex-direction: column;
+      gap: 15px;
+      text-align: center;
+    }
+    
+    .main-nav ul {
+      gap: 10px;
+    }
+  }
+  body {
+    margin: 0; /* Reset default body margin */
+  }
+
+.footer-left {
+  display: flex; /* Enable Flexbox for the container */
+  align-items: center; /* Vertically align items in the center */
+  gap: 15px; /* Add some space between the logo and the text */
+}
+
+.footer-logo {
+  /* You might want to adjust the logo's styling here if needed */
+  display: inline-block; /* To prevent potential layout issues */
+}
+
+.footer-left p {
+  margin: 0; /* Remove default paragraph margins */
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 100px; /* Adjust to match footer height */
+  box-sizing: border-box;
+}
+
+.rru-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 37px; /* Adjust to match your footer's height */
+}

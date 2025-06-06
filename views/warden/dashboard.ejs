@@ -1,0 +1,97 @@
+<%- include('../partials/header.ejs') %>
+
+<link rel="stylesheet" href="/css/warden/dashboard.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<title><%= title %></title>
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1><i class="fas fa-tachometer-alt"></i> <%= user.role.charAt(0).toUpperCase() + user.role.slice(1) %> Dashboard</h1>
+    <div class="user-info">
+      <span class="welcome-msg">Welcome, <%= user.fullName %></span>
+      <span class="last-login">Last login: <%= new Date().toLocaleString() %></span>
+    </div> 
+  </div>
+ 
+  <div class="dashboard-grid">
+    <!-- Leave Management Cards -->
+    <a href="/<%=user.role%>/pending-leave-forms" class="dashboard-card card-pending">
+      <div class="card-icon">
+        <i class="fas fa-hourglass-half"></i>
+      </div>
+      <h2>Pending Leave Forms</h2>
+      <p>Review and approve pending leave applications</p>
+    </a>
+
+    <a href="/<%=user.role%>/approved-leave-forms" class="dashboard-card card-approved">
+      <div class="card-icon">
+        <i class="fas fa-check-circle"></i>
+      </div>
+      <h2>Approved Leave Forms</h2>
+      <p>View all approved leave applications</p>
+    </a>
+
+    <a href="/<%=user.role%>/declined-leave-forms" class="dashboard-card card-declined">
+      <div class="card-icon">
+        <i class="fas fa-times-circle"></i>
+      </div>
+      <h2>Declined Leave Forms</h2>
+      <p>View all declined leave applications</p>
+    </a>
+
+    <a href="/<%=user.role%>/all-leave-forms" class="dashboard-card card-all">
+      <div class="card-icon">
+        <i class="fas fa-list-alt"></i>
+      </div>
+      <h2>All Leave Forms</h2>
+      <p>Complete history of all leave applications</p>
+    </a>
+
+    <!-- Refund Management Cards -->
+    <a href="/<%=user.role%>/refund-management" class="dashboard-card card-refund">
+      <div class="card-icon">
+        <i class="fas fa-calculator"></i>
+      </div>
+      <h2>Refund Management</h2>
+      <p>Set refund parameters</p>
+    </a>
+
+    <a href="/<%=user.role%>/refund-list" class="dashboard-card card-list">
+      <div class="card-icon">
+        <i class="fas fa-file-invoice-dollar"></i>
+      </div>
+      <h2>Refund List</h2>
+      <p>View all processed refund records</p>
+    </a>
+
+    <!-- Profile Card -->
+    <a href="/<%=user.role%>/profile" class="dashboard-card card-profile">
+      <div class="card-icon">
+        <i class="fas fa-user-cog"></i>
+      </div>
+      <h2>Profile</h2>
+      <p>Update your account information</p>
+    </a>
+
+    <!-- Admin-Specific Cards -->
+    <% if (user.role === 'admin') { %>
+      <a href="/<%=user.role%>/manage-roles" class="dashboard-card card-admin">
+        <div class="card-icon">
+          <i class="fas fa-user-shield"></i>
+        </div>
+        <h2>Manage Roles</h2>
+        <p>Assign and modify user permissions</p>
+      </a>
+
+      <a href="/<%=user.role%>/delete-passout" class="dashboard-card card-delete">
+        <div class="card-icon">
+          <i class="fas fa-user-slash"></i>
+        </div>
+        <h2>Remove Alumni Data</h2>
+        <p>Manage graduated student records</p>
+      </a>
+    <% } %>
+  </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>

@@ -1,0 +1,59 @@
+<%- include('../partials/header.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/auth/login.css">
+    <title> Rashtriya Raksha University</title>
+</head>
+
+<body>
+    <div class="welcome-container">
+        <div class="welcome-header">
+            <h1>Welcome to <span>RRU Hostel </span></h1>
+        </div>
+
+        <% if (error) { %>
+            <div class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i> <%= error %>
+            </div>
+        <% } %>
+
+        <div class="auth-container">
+            <div class="auth-card">
+                <h2><i class="fas fa-sign-in-alt"></i> Login</h2>
+                <p>Access your account using your RRU Google Account</p>
+
+                <div class="google-auth">
+                    <a href="/auth/google" class="google-btn">
+                        <img src="/images/rru images/google-logo.png" alt="Google Logo">
+                        <span>Continue with Google</span>
+                    </a>
+                </div>
+
+                <div class="admin-note">
+                    <p><i class="fas fa-info-circle"></i> For login, please use your RRU Gmail account</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="rru-footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <a href="/" class="footer-logo">
+                    <img src="/images/rru images/rru-Logo.png" alt="RRU Logo">
+                </a>
+                <p>&copy; 2025 RRU Hostel Portal. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <a href="mailto:hostel.office@rru.ac.in">Email: hostel.office@rru.ac.in</a>
+                <a href="tel:+917968126827">Phone: +91 7968126827</a>
+                <a href="https://rru.ac.in/wp-content/uploads/2022/06/RRU_Hostel_Rules.pdf" target="_blank">Hostel Rules</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/partials/header.css">
+  <link rel="icon" href="/images/rru images/rru-logo.png" type="image/png">
+</head>
+
+<body> 
+  <header class="rru-header">
+    <div class="header-container">
+      <a href="/" class="logo">
+        <img src="/images/rru images/rru-logo.png" alt="RRU Logo">
+        <div class="logo-text">
+          <h1>Rashtriya Raksha University</h1>
+          <p>Pioneering National Security and Police University of India</p>
+        </div>
+      </a>
+      <nav class="main-nav">
+        <ul>
+          <li id="logout-button-container"><a href="/logout" class="logout-button">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <script>
+    // Function to hide logout button on login page
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get the current URL path
+      const path = window.location.pathname;
+      
+      // Check if we're on the login page
+      if (path === '/login') {
+        // Hide the logout button
+        document.getElementById('logout-button-container').style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

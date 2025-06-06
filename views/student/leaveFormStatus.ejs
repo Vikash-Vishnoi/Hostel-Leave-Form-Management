@@ -1,0 +1,150 @@
+<%- include('../partials/header.ejs') %>
+
+<link rel="stylesheet" href="/css/student/leaveFormStatus.css">
+
+<title><%= title %></title>
+<div class="status-container">
+  <div class="status-header">
+    <h2><i class="fas fa-clipboard-check"></i> Leave Application Status</h2>
+  </div>
+
+  <% if (error) { %>
+    <div class="alert alert-error">
+      <i class="fas fa-exclamation-circle"></i> <%= error %>
+    </div> 
+  <% } else if (!leaveForm) { %>
+    <div class="empty-state">
+      <i class="fas fa-file-alt"></i>
+      <h3>No Leave Applications Found</h3>
+      <p>You haven't submitted any leave applications yet.</p>
+      <a href="/student/leave-form" class="btn-primary">
+        <i class="fas fa-plus"></i> Apply for Leave
+      </a>
+    </div>
+  <% } else { %>
+    <div class="status-card">
+      <div class="status-badge <%= leaveForm.status %>">
+        <i class="<%= 
+          leaveForm.status === 'approved' ? 'fas fa-check-circle' : 
+          leaveForm.status === 'declined' ? 'fas fa-times-circle' : 
+          leaveForm.status === 'edited' ? 'fas fa-edit' : 'fas fa-hourglass-half' 
+        %>"></i>
+        <%= leaveForm.status.toUpperCase() %>
+      </div>
+
+      <div class="status-grid">
+        <!-- Student Information -->
+        <div class="status-section">
+          <h3><i class="fas fa-user-graduate"></i> Student Details</h3>
+          <div class="info-row">
+            <span class="info-label">UID Number</span>
+            <span class="info-value"><%= user.uidNumber %></span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Full Name</span>
+            <span class="info-value"><%= user.fullName %></span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Hostel</span>
+            <span class="info-value"><%= user.blockHostelName %></span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Room</span>
+            <span class="info-value"><%= user.roomNo %></span>
+          </div>
+        </div>
+
+        <!-- Leave Details -->
+        <div class="status-section">
+          <h3><i class="fas fa-calendar-alt"></i> Leave Details</h3>
+          <div class="info-row">
+            <span class="info-label">Reason</span>
+            <span class="info-value"><%= leaveForm.reason %></span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Duration</span>
+            <span class="info-value">
+              <%= leaveForm.from.toDateString() %> to <%= leaveForm.to.toDateString() %>
+              <span class="days-count">
+                (<%= Math.ceil((new Date(leaveForm.to) - new Date(leaveForm.from)) / (1000 * 60 * 60 * 24)) + 1 %> days)
+              </span>
+            </span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Destination</span>
+            <span class="info-value"><%= leaveForm.goingTo %></span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Parent Contact</span>
+            <span class="info-value"><%= leaveForm.parentContact %></span>
+          </div>
+        </div>
+
+        <!-- Status Details -->
+        <div class="status-section">
+          <h3><i class="fas fa-info-circle"></i> Status Information</h3>
+
+          <div class="info-row">
+            <span class="info-label">Current Status</span>
+            <span class="info-value"><%= leaveForm.status.toUpperCase() %></span>
+          </div>
+
+          <% if (leaveForm.status === 'approved') { %>
+            <div class="info-row">
+              <span class="info-label">Approved On</span>
+              <span class="info-value"><%= leaveForm.formattedApprovedOrDeclinedAt || "N/A" %></span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Approved By</span>
+              <span class="info-value"><%= leaveForm.approvedBy ? leaveForm.approvedBy.fullName : "N/A" %></span>
+            </div>
+          <% } %>
+
+          <% if (leaveForm.status === 'declined') { %>
+            <div class="info-row">
+              <span class="info-label">Declined On</span>
+              <span class="info-value"><%= leaveForm.formattedApprovedOrDeclinedAt || "N/A" %></span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Declined By</span>
+              <span class="info-value"><%= leaveForm.approvedBy ? leaveForm.approvedBy.fullName : "N/A" %></span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Warden's Comment</span>
+              <span class="info-value comment-box"><%= leaveForm.declinedReason || "No comment provided" %></span>
+            </div>
+          <% } %>
+
+          <% if (leaveForm.status === 'pending') { %>
+            <div class="info-row">
+              <span class="info-label">Edited On</span>
+              <span class="info-value"><%= leaveForm.formattedEditedAt || "N/A" %></span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Your Comment</span>
+              <span class="info-value"><%= leaveForm.studentComment || "N/A" %></span>
+            </div>
+          <% } %>
+
+        </div>
+      </div>
+
+      <div class="status-actions">
+        <% if (leaveForm.status === 'pending' || leaveForm.status === 'approved') { %>
+          <form action="/student/edit-leave-form/<%= leaveForm._id %>" method="GET">
+            <button type="submit" class="btn-edit">
+              <i class="fas fa-edit"></i> Edit Application
+            </button>
+          </form>
+        <% } %>
+        <a href="/student/leave-form-history" class="btn-history">
+          <i class="fas fa-history"></i> View All Applications
+        </a>
+      </div>
+
+    </div>
+  <% } %>
+</div>
+
+<%- include('../partials/footer.ejs') %>
+ 

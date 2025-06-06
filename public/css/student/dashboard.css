@@ -1,0 +1,176 @@
+/* ===== RRU Color Scheme ===== */
+:root {
+  --rru-blue: #0c4da1;
+  --rru-dark-blue: #0a3d7a;
+  --rru-gold: #f9a51a;
+  --rru-light: #f5f7fa;
+  --rru-dark: #2c3e50;
+}
+
+/* ===== Base Styles ===== */
+.dashboard-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+}
+
+/* ===== Profile Section ===== */
+.dashboard-profile {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--rru-gold);
+}
+
+.profile-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-default {
+  width: 100%;
+  height: 100%;
+  background: var(--rru-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--rru-blue);
+  font-size: 2.5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile-info h2 {
+  margin: 0;
+  color: var(--rru-dark);
+  font-size: 1.8rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.highlight {
+  color: var(--rru-blue);
+}
+
+.student-id {
+  margin: 0.3rem 0 1rem;
+  color: #666;
+  font-size: 0.9rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-profile, .btn-logout {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.btn-profile {
+  background: var(--rru-blue);
+  color: white;
+}
+
+.btn-logout {
+  background: #f5f5f5;
+  color: var(--rru-dark);
+  border: 1px solid #ddd;
+}
+
+/* ===== Dashboard Cards ===== */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.dashboard-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  border-top: 4px solid transparent;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.card-icon {
+  font-size: 2rem;
+  color: var(--rru-blue);
+  margin-bottom: 1rem;
+}
+
+.dashboard-card h3 {
+  margin: 0 0 0.5rem;
+  color: var(--rru-dark);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard-card p {
+  margin: 0 0 1.5rem;
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--rru-blue);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card-link:hover {
+  color: var(--rru-dark-blue);
+}
+
+/* Card Specific Colors */
+.card-apply { border-color: #28a745; }
+.card-status { border-color: #17a2b8; }
+.card-history { border-color: #6c757d; }
+.card-profile { border-color: #ffc107; }
+.card-refund { border-color: #20c997; }
+
+/* ===== Responsive Styles ===== */
+@media (max-width: 768px) {
+  .dashboard-profile {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-actions {
+    justify-content: center;
+  }
+}

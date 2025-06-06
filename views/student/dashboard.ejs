@@ -1,0 +1,77 @@
+<%- include('../partials/header.ejs') %>
+
+<link rel="stylesheet" href="/css/student/dashboard.css">
+
+<title><%= title %></title>
+<div class="dashboard-container">
+  <!-- User Profile Section -->
+  <div class="dashboard-profile">
+    <div class="profile-pic">
+      <% if (user.profilePic) { %>
+        <img src="<%= user.profilePic %>" alt="Profile Picture">
+      <% } else { %>
+        <div class="profile-default">
+          <img src="/images/profile-pic-uploads/default.png" alt="Default Profile Picture">
+        </div> 
+      <% } %>
+    </div> 
+    
+    <div class="profile-info">
+      <h2>Welcome, <span class="highlight"><%= user.fullName %></span>!</h2>
+      <p class="student-id">UID Number: <%= user.uidNumber || 'N/A' %></p>
+      <div class="profile-actions">
+        <a href="/student/profile" class="btn-profile">
+          <i class="fas fa-user-cog"></i> Edit Profile
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Cards Grid -->
+  <div class="dashboard-grid">
+    <div class="dashboard-card card-apply">
+      <div class="card-icon">
+        <i class="fas fa-file-signature"></i>
+      </div>
+      <h3>Apply Leave</h3>
+      <p>Submit a new leave application for approval</p>
+      <a href="/student/leave-form" class="card-link">
+        Go to Apply Leave <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <div class="dashboard-card card-status">
+      <div class="card-icon">
+        <i class="fas fa-search"></i>
+      </div>
+      <h3>Leave Status</h3>
+      <p>Check current status of your applications</p>
+      <a href="/student/leave-form-status" class="card-link">
+        Check Status <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <div class="dashboard-card card-history">
+      <div class="card-icon">
+        <i class="fas fa-history"></i>
+      </div>
+      <h3>Leave History</h3>
+      <p>View all your past leave applications</p>
+      <a href="/student/leave-form-history" class="card-link">
+        View History <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+
+    <div class="dashboard-card card-refund">
+      <div class="card-icon">
+        <i class="fas fa-rupee-sign"></i>
+      </div>
+      <h3>Refund Amount</h3>
+      <p>Check your hostel refund amount</p>
+      <a href="/student/refund-amount" class="card-link">
+        Check Refund <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+</div>
+<%- include('../partials/footer.ejs') %>

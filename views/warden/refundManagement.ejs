@@ -1,0 +1,64 @@
+<%- include('../partials/header.ejs') %>
+
+<link rel="stylesheet" href="/css/warden/refundManagement.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<title><%= title %></title>
+<div class="refund-management-container">
+  <div class="refund-header">
+    <h1><i class="fas fa-calculator"></i> Refund Configuration</h1>
+    <p class="subtitle">Set parameters for student refund calculations</p>
+  </div>
+
+  <% if (success) { %>
+    <div class="alert alert-success">
+      <i class="fas fa-check-circle"></i> <%= success %>
+    </div> 
+  <% } %>
+  <% if (error) { %>
+    <div class="alert alert-error">
+      <i class="fas fa-exclamation-circle"></i> <%= error %>
+    </div>
+  <% } %>
+
+  <div class="refund-form-container">
+    <form action="/<%=user.role%>/refund-management" method="POST" class="refund-form">
+      <div class="form-section">
+        <h2><i class="fas fa-cog"></i> Refund Parameters</h2>
+        
+        <div class="form-group">
+          <label for="minDays">
+            <i class="fas fa-calendar-check"></i> Minimum Days Required for Refund
+          </label>
+          <div class="input-wrapper">
+            <input type="number" id="minDays" name="minDays" value="<%= refundMinDays %>" min="1" max="365" required>
+            <span class="input-suffix">days</span>
+          </div>
+          <p class="help-text">Minimum leave duration required to qualify for refund</p>
+        </div>
+
+        <div class="form-group">
+          <label for="amountPerDay">
+            <i class="fas fa-rupee-sign"></i> Refund Amount per Day
+          </label>
+          <div class="input-wrapper">
+            <span class="input-prefix">₹</span>
+            <input type="number" id="amountPerDay" name="amountPerDay" value="<%= refundAmountPerDay %>" min="1" max="10000" required>
+          </div>
+          <p class="help-text">Daily refund rate for eligible leave periods</p>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-save">
+          <i class="fas fa-save"></i> Update Configuration
+        </button>
+        <a href="/<%=user.role%>/dashboard" class="btn-cancel">
+          <i class="fas fa-times"></i> Cancel
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>

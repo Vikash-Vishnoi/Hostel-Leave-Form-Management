@@ -1,0 +1,201 @@
+<%- include('../partials/header.ejs') %>
+
+<link rel="stylesheet" href="/css/student/profile.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<title><%= title %></title>
+<div class="profile-container">
+  <div class="profile-header">
+    <h1><i class="fas fa-user-circle"></i> Student Profile</h1>
+    <div class="profile-actions">
+      <a href="/student/dashboard" class="btn-back">
+        <i class="fas fa-arrow-left"></i> Back to Dashboard
+      </a>
+    </div> 
+  </div>
+
+  <% if (error) { %>
+    <div class="alert alert-error">
+      <i class="fas fa-exclamation-circle"></i> <%= error %>
+    </div>
+  <% } %>
+  <% if (success) { %>
+    <div class="alert alert-success">
+      <i class="fas fa-check-circle"></i> <%= success %>
+    </div>
+  <% } %>
+
+  <form action="/student/profile/update" method="POST" class="profile-form" enctype="multipart/form-data">
+    <div class="profile-grid">
+      <!-- Personal Information Section -->
+      <div class="profile-section">
+        <h2><i class="fas fa-id-card"></i> Personal Information</h2>
+        
+        <div class="profile-pic-container"> 
+          <div class="profile-pic-wrapper">
+            <% if (user.profilePic) { %>
+              <img src="<%= user.profilePic %>" alt="Profile Picture" class="profile-pic">
+            <% } else { %>
+              <img src="/images/profile-pic-uploads/default.png" alt="Default Profile Picture" class="profile-pic">
+            <% } %>
+            <label for="profilePic" class="profile-pic-upload">
+              <i class="fas fa-camera"></i> Change Photo
+              <input type="file" id="profilePic" name="profilePic" accept="image/*">
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="fullName"><i class="fas fa-user"></i> Full Name</label>
+          <input type="text" id="fullName" name="fullName" value="<%= user.fullName %>" readonly>
+        </div>
+
+        <div class="form-group">
+          <label for="gender"><i class="fas fa-venus-mars"></i> Gender</label>
+          <select id="gender" name="gender" required>
+            <option value="" <%= !user.gender || user.gender === '' ? 'selected' : '' %>>Select Gender</option>
+            <option value="Male" <%= user.gender === 'Male' ? 'selected' : '' %>>Male</option>
+            <option value="Female" <%= user.gender === 'Female' ? 'selected' : '' %>>Female</option>
+            <option value="Other" <%= user.gender === 'Other' ? 'selected' : '' %>>Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="collegeEmail"><i class="fas fa-envelope"></i> College Email</label>
+          <input type="email" id="collegeEmail" name="collegeEmail" value="<%= user.collegeEmail %>" readonly>
+        </div>
+
+        <div class="form-group">
+          <label for="enrollmentNumber"><i class="fas fa-id-badge"></i> Enrollment Number</label>
+          <input type="text" id="enrollmentNumber" name="enrollmentNumber" value="<%= user.enrollmentNumber %>" maxlength="20" required>
+        </div>
+
+        <div class="form-group">
+          <label for="uidNumber"><i class="fas fa-id-badge"></i> UID Number</label>
+          <input type="text" id="uidNumber" name="uidNumber" value="<%= user.uidNumber %>" maxlength="20" required>
+        </div>
+      </div>
+
+      <!-- Contact Information Section -->
+      <div class="profile-section">
+        <h2><i class="fas fa-address-book"></i> Contact Information</h2>
+        
+        <div class="form-group">
+          <label for="ownMobileNumber"><i class="fas fa-mobile-alt"></i> Mobile Number</label>
+          <input type="tel" id="ownMobileNumber" name="ownMobileNumber" value="<%= user.ownMobileNumber %>" pattern="[0-9]{10}" maxlength="10" required>
+        </div>
+
+        <div class="form-group">
+          <label for="fatherMobileNumber"><i class="fas fa-phone-alt"></i> Father's Mobile</label>
+          <input type="tel" id="fatherMobileNumber" name="fatherMobileNumber" value="<%= user.fatherMobileNumber %>" pattern="[0-9]{10}" maxlength="10" required>
+        </div>
+
+        <div class="form-group">
+          <label for="address"><i class="fas fa-home"></i> Address</label>
+          <textarea id="address" name="address" maxlength="200" required><%= user.address %></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="blockHostelName"><i class="fas fa-building"></i> Block/Hostel</label>
+          <input type="text" id="blockHostelName" name="blockHostelName" value="<%= user.blockHostelName %>" maxlength="50" required>
+        </div>
+
+        <div class="form-group">
+          <label for="roomNo"><i class="fas fa-door-open"></i> Room Number</label>
+          <input type="number" id="roomNo" name="roomNo" value="<%= user.roomNo %>" min="1" max="9999" required>
+        </div>
+      </div>
+
+      <!-- Academic & Bank Information Section -->
+      <div class="profile-section">
+        <h2><i class="fas fa-university"></i> Academic Information</h2>
+        
+        <div class="form-group">
+          <label for="school"><i class="fas fa-school"></i> School</label>
+          <select id="school" name="school" required>
+              <option value="" <%= !user.school ? 'selected' : '' %>>Select School</option>
+              <option value="SITAICS" <%= user.school === 'SITAICS' ? 'selected' : '' %>>SITAICS</option>
+              <option value="SASET" <%= user.school === 'SASET' ? 'selected' : '' %>>SASET</option>
+              <option value="SISSP" <%= user.school === 'SISSP' ? 'selected' : '' %>>SISSP</option>
+              <option value="SICMSS" <%= user.school === 'SICMSS' ? 'selected' : '' %>>SICMSS</option>
+              <option value="SISDSS" <%= user.school === 'SISDSS' ? 'selected' : '' %>>SISDSS</option>
+              <option value="SFRMNS" <%= user.school === 'SFRMNS' ? 'selected' : '' %>>SFRMNS</option>
+              <option value="SICSSL" <%= user.school === 'SICSSL' ? 'selected' : '' %>>SICSSL</option>
+              <option value="SCBS" <%= user.school === 'SCBS' ? 'selected' : '' %>>SCBS</option>
+              <option value="SCLML" <%= user.school === 'SCLML' ? 'selected' : '' %>>SCLML</option>
+              <option value="SPES" <%= user.school === 'SPES' ? 'selected' : '' %>>SPES</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="course"><i class="fas fa-graduation-cap"></i> Course</label>
+          <input type="text" id="course" name="course" value="<%= user.course %>" maxlength="100" required>
+        </div>
+
+        <div class="form-group">
+          <label for="studyPeriodEnd"><i class="fas fa-calendar-alt"></i> Study Period End Year</label>
+          <select id="studyPeriodEnd" name="studyPeriodEnd" required>
+              <option value="" <%= !user.studyPeriod || !user.studyPeriod.end ? 'selected' : '' %>>Select End Year</option>
+              <% 
+                const currentYear = new Date().getFullYear();
+                for (let year = currentYear + 1; year <= currentYear + 10; year++) { 
+              %>
+                  <option value="<%= year %>" <%= user.studyPeriod && user.studyPeriod.end === year ? 'selected' : '' %>><%= year %></option>
+              <% } %>
+          </select>
+        </div>
+
+        <h2><i class="fas fa-piggy-bank"></i> Bank Details</h2>
+        
+        <div class="form-group">
+          <label for="accountNumber"><i class="fas fa-wallet"></i> Account Number</label>
+          <input type="text" id="accountNumber" name="accountNumber" value="<%= user.accountNumber %>" maxlength="20" required>
+        </div>
+
+        <div class="form-group">
+          <label for="ifscCode"><i class="fas fa-barcode"></i> IFSC Code</label>
+          <input type="text" id="ifscCode" name="ifscCode" value="<%= user.ifscCode %>" maxlength="11" pattern="[A-Z]{4}0[A-Z0-9]{6}" required>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-update">
+        <i class="fas fa-save"></i> Update Profile
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Preview profile picture before upload
+  document.getElementById('profilePic').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        document.querySelector('.profile-pic').src = event.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+  // Populate study period end year dropdown
+  const currentYear = new Date().getFullYear();
+  const select = document.getElementById("studyPeriodEnd");
+
+  for (let year = currentYear + 1; year <= currentYear + 10; year++) {
+    const option = document.createElement("option");
+    option.value = year;
+    option.textContent = year;
+    select.appendChild(option);
+  }
+
+  // Set the selected value if it exists in the database
+  const studyPeriodEnd = "<%= user.studyPeriod && user.studyPeriod.end ? user.studyPeriod.end : '' %>";
+  if (studyPeriodEnd) {
+    select.value = studyPeriodEnd;
+  }
+</script>
+
+<%- include('../partials/footer.ejs') %>

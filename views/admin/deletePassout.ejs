@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/header.ejs') %>
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Alumni Data</title>
+    <link rel="stylesheet" href="/css/admin/deletePassout.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body> 
+    <!-- Main Container -->
+    <div class="profile-container">
+        <!-- Page Header -->
+        <div class="profile-header">
+            <h1>
+                <i class="fas fa-user-graduate"></i>
+                Delete Pass-Out Students Data
+            </h1>
+            <p class="profile-description">
+                Select the pass-out year to delete all students from that year.
+                   
+        </div>
+
+        <!-- Alerts -->
+        <% if (error) { %>
+            <div class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i>
+                <%= error %>
+            </div>
+        <% } %>
+        <% if (success) { %>
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                <%= success %>
+            </div>
+        <% } %>
+
+        <!-- Form Card -->
+        <div class="profile-form">
+            <form action="/admin/delete-passout" method="POST">
+                <div class="form-group">
+                    <label for="passoutYear">
+                        <i class="fas fa-calendar-alt"></i>
+                        Select Pass-Out Year:
+                    </label>
+                    <select id="passoutYear" name="passoutYear" class="form-control" required>
+                        <script>
+                            const currentYear = new Date().getFullYear();
+                            for (let year = currentYear - 10; year < currentYear; year++) {
+                                document.write(`<option value="${year}">${year}</option>`);
+                            }
+                        </script>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-update">
+                        <i class="fas fa-trash-alt"></i>
+                        Delete Students
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+<%- include('../partials/footer.ejs') %>

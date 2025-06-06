@@ -1,0 +1,269 @@
+/* ===== RRU Color Scheme ===== */
+:root {
+  --rru-blue: #0c4da1;
+  --rru-dark-blue: #0a3d7a;
+  --rru-gold: #f9a51a;
+  --rru-light: #f5f7fa;
+  --rru-dark: #2c3e50;
+  --success-green: #28a745;
+  --error-red: #dc3545;
+  --warning-orange: #fd7e14;
+  --info-blue: #17a2b8;
+}
+
+/* ===== Base Container ===== */
+.status-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+/* ===== Header Section ===== */
+.status-header {
+  margin-bottom: 2rem;
+}
+
+.status-header h2 {
+  color: var(--rru-dark);
+  margin: 0 0 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-breadcrumb {
+  color: #666;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-breadcrumb a {
+  color: var(--rru-blue);
+  text-decoration: none;
+}
+
+.status-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Card Layout ===== */
+.status-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===== Rotated Badge ===== */
+.status-badge {
+  position: absolute;
+  top: 20px;
+  right: -30px;
+  padding: 5px 40px;
+  transform: rotate(45deg);
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  width: 120px;
+}
+
+.status-badge i {
+  margin-right: 5px;
+}
+
+.status-badge.pending {
+  background: var(--warning-orange);
+}
+
+.status-badge.approved {
+  background: var(--success-green);
+}
+
+.status-badge.declined {
+  background: var(--error-red);
+}
+
+.status-badge.edited {
+  background: var(--info-blue);
+}
+
+/* ===== Grid Layout Inside Card ===== */
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+/* ===== Section Heading (Student, Leave, Status) ===== */
+.status-section h3 {
+  color: var(--rru-blue);
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--rru-light);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+}
+
+/* ===== Info Rows (Label + Value) ===== */
+.info-row {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.info-label {
+  font-weight: 500;
+  color: var(--rru-dark);
+  min-width: 130px;
+}
+
+.info-value {
+  color: #555;
+  flex: 1;
+}
+
+.days-count {
+  font-size: 0.8rem;
+  color: #888;
+  margin-left: 5px;
+}
+
+/* ===== Action Buttons ===== */
+.status-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-edit,
+.btn-history {
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s;
+}
+
+.btn-edit {
+  background: var(--rru-gold);
+  color: var(--rru-dark-blue);
+  border: none;
+  cursor: pointer;
+}
+
+.btn-edit:hover {
+  background: #e69500;
+}
+
+.btn-history {
+  background: var(--rru-light);
+  color: var(--rru-dark);
+  border: 1px solid #ddd;
+}
+
+.btn-history:hover {
+  background: #e9ecef;
+}
+
+/* ===== Empty State (no leave applications) ===== */
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+}
+
+.empty-state i {
+  font-size: 3rem;
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+  color: var(--rru-dark);
+  margin: 0.5rem 0;
+}
+
+.empty-state p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.btn-primary {
+  background: var(--rru-blue);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.3s;
+}
+
+.btn-primary:hover {
+  background: var(--rru-dark-blue);
+}
+
+/* ===== Alerts (Error Messages) ===== */
+.alert {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert-error {
+  background: #f8d7da;
+  color: var(--error-red);
+  border-left: 4px solid var(--error-red);
+}
+
+/* ===== Comment Box ===== */
+.comment-box {
+  display: block;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-style: italic;
+  color: #555;
+  white-space: pre-wrap; /* Preserve line breaks */
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .status-grid {
+      grid-template-columns: 1fr;
+  }
+
+  .info-row {
+      flex-direction: column;
+      gap: 0.3rem;
+  }
+
+  .status-actions {
+      flex-direction: column;
+  }
+
+  .btn-edit,
+  .btn-history {
+      width: 100%;
+      justify-content: center;
+  }
+}

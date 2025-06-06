@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/admin/manageRoles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<%- include('../partials/header.ejs') %>
+  
+<body>
+    <div class="profile-container">
+        <!-- Page Header -->
+        <div class="profile-header">
+            <h1>
+                <i class="fas fa-user-cog"></i>
+                Manage User Roles
+            </h1>
+        </div>
+
+        <!-- Alerts -->
+        <% if (error) { %>
+            <div class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i>
+                <%= error %>
+            </div>
+        <% } %>
+        <% if (success) { %>
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                <%= success %>
+            </div>
+        <% } %>
+
+        <!-- Search Form -->
+        <div class="profile-form">
+            <form action="/admin/manage-roles" method="GET" class="search-form">
+                <div class="form-group">
+                    <label for="search">
+                        <i class="fas fa-search"></i>
+                        Search by College Email:
+                    </label>
+                    <input
+                        type="text"
+                        id="search"
+                        name="search"
+                        placeholder="Enter college email"
+                        value="<%= searchQuery || '' %>"
+                        class="form-control"
+                        maxlength="100"
+                        required
+                    />
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-update">
+                        <i class="fas fa-search"></i>
+                        Search
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Users Table -->
+        <% if (users.length === 0) { %>
+            <div class="profile-form">
+                <p class="no-users">
+                    <i class="fas fa-info-circle"></i>
+                    No users found.
+                </p>
+            </div>
+        <% } else { %>
+            <div class="profile-form">
+                <div class="table-responsive">
+                    <table class="roles-table">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-envelope"></i> College Email</th>
+                                <th><i class="fas fa-user"></i> Full Name</th>
+                                <th><i class="fas fa-user-tag"></i> Current Role</th>
+                                <th><i class="fas fa-exchange-alt"></i> Change Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% users.forEach(user => { %>
+                                <tr>
+                                    <td><%= user.collegeEmail %></td>
+                                    <td><%= user.fullName %></td>
+                                    <td>
+                                        <span class="role-badge <%= user.role === 'warden' ? 'warden-badge' : 'student-badge' %>">
+                                            <%= user.role %>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <form action="/admin/manage-roles" method="POST" class="role-form">
+                                            <input type="hidden" name="userId" value="<%= user._id %>">
+                                            <select name="newRole" class="form-control" required>
+                                                <option value="student" <%= user.role === "student" ? "selected" : "" %>>Student</option>
+                                                <option value="warden" <%= user.role === "warden" ? "selected" : "" %>>Warden</option>
+                                            </select>
+                                            <button type="submit" class="btn-update">
+                                                <i class="fas fa-sync-alt"></i>
+                                                Update
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <% } %>
+    </div>
+    <%- include('../partials/footer.ejs') %>
+</body>
+</html>

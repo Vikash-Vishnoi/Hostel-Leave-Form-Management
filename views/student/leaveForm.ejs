@@ -1,0 +1,111 @@
+<%- include('../partials/header.ejs') %>
+
+<link rel="stylesheet" href="/css/student/leaveForm.css">
+
+<title><%= title %></title>
+<div class="form-container">
+  <div class="form-header">
+    <h2><i class="fas fa-file-alt"></i> Leave Application Form</h2>
+  </div>
+
+  <% if (error) { %>
+    <div class="alert alert-error">
+      <i class="fas fa-exclamation-circle"></i> <%= error %>
+    </div>
+  <% } %>  
+
+  <form action="/student/leave-Form" method="POST" class="leave-form">
+    <div class="form-grid">
+      <!-- Student Information (Readonly) -->
+      <div class="form-section">
+        <h3><i class="fas fa-user-graduate"></i> Student Information</h3>
+        <div class="form-group">
+          <label for="uidNumber">UID Number</label>
+          <input type="text" name="uidNumber" id="uidNumber" value="<%= user.uidNumber %>" readonly>
+        </div>
+        
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" name="fullName" id="fullName" value="<%= user.fullName %>" readonly>
+        </div>
+        
+        <div class="form-group">
+          <label for="blockHostelName">Block/Hostel</label>
+          <input type="text" name="blockHostelName" id="blockHostelName" value="<%= user.blockHostelName %>" readonly>
+        </div>
+        
+        <div class="form-group">
+          <label for="roomNo">Room Number</label>
+          <input type="text" name="roomNo" id="roomNo" value="<%= user.roomNo %>" readonly>
+        </div>
+      </div>
+
+      <!-- Leave Details -->
+      <div class="form-section">
+        <h3><i class="fas fa-calendar-alt"></i> Leave Details</h3>
+        <div class="form-group">
+          <label for="reason">Reason for Leave</label>
+          <textarea id="reason" name="reason" maxlength="500" required><%= formData ? formData.reason : '' %></textarea>
+        </div>
+        
+        <div class="date-group">
+          <div class="form-group">
+            <label for="from">From Date</label>
+            <div class="input-icon">
+              <input type="date" name="from" id="from" value="<%= formData ? formData.from : '' %>" required>
+              <i class="fas fa-calendar-day"></i>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="to">To Date</label>
+            <div class="input-icon">
+              <input type="date" name="to" id="to" value="<%= formData ? formData.to : '' %>" required>
+              <i class="fas fa-calendar-day"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="goingTo">Going To (Place)</label>
+          <input type="text" name="goingTo" id="goingTo" value="<%= formData ? formData.goingTo : '' %>" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="parentContact">Parent's Contact</label>
+          <div class="input-icon">
+            <input type="tel" name="parentContact" id="parentContact"  pattern="[0-9]{10}" maxlength="10" 
+                   value="<%= formData ? formData.parentContact : user.fatherMobileNumber %>" required>
+            <i class="fas fa-phone"></i>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-submit">
+        <i class="fas fa-paper-plane"></i> Submit Application
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+  // Set default values for "From Date" and "To Date"
+  const today = new Date().toISOString().split("T")[0];
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const tomorrowDate = tomorrow.toISOString().split("T")[0];
+
+  const fromDateInput = document.getElementById("from");
+  const toDateInput = document.getElementById("to");
+
+  if (fromDateInput && !fromDateInput.value) fromDateInput.value = today;
+  if (toDateInput && !toDateInput.value) toDateInput.value = tomorrowDate;
+
+  if (fromDateInput) fromDateInput.setAttribute("min", today);
+  if (toDateInput) toDateInput.setAttribute("min", tomorrowDate);
+</script>
+
+<%- include('../partials/footer.ejs') %>

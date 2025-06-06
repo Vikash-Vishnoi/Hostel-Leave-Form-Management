@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/warden/refundList.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<%- include('../partials/header.ejs') %>
+
+<body>
+    <div class="profile-container">
+        <!-- Page Header -->
+        <div class="profile-header">
+            <h1>
+                <i class="fas fa-file-invoice-dollar"></i>
+                Refund List
+            </h1>
+            <a href="/<%=user.role%>/refund-list/download-refund-excel" class="btn btn-download">
+                <i class="fas fa-download"></i> Download Excel
+            </a>
+        </div>
+
+        <!-- Alerts -->
+        <% if (error) { %>
+            <div class="alert alert-error">
+                <i class="fas fa-exclamation-circle"></i>
+                <%= error %>
+            </div>  
+        <% } %>
+        <% if (success) { %>
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i>
+                <%= success %>
+            </div>
+        <% } %>
+
+        <!-- Refund Table -->
+        <% if (refunds.length === 0) { %>
+            <div class="profile-form">
+                <p class="no-data">
+                    <i class="fas fa-info-circle"></i>
+                    No students eligible for refunds.
+                </p>
+            </div>
+        <% } else { %>
+            <div class="profile-form">
+                <div class="table-responsive">
+                    <table class="refund-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th><i class="fas fa-id-card"></i> UID</th>
+                                <th><i class="fas fa-user"></i> Full Name</th>
+                                <th><i class="fas fa-id-badge"></i> Enrollment</th>
+                                <th><i class="fas fa-graduation-cap"></i> School</th>
+                                <th><i class="fas fa-home"></i> Hostel</th>
+                                <th><i class="fas fa-door-open"></i> Room</th>
+                                <th><i class="fas fa-calendar-day"></i> From</th>
+                                <th><i class="fas fa-calendar-day"></i> To</th>
+                                <th><i class="fas fa-calendar-alt"></i> Days</th>
+                                <th><i class="fas fa-rupee-sign"></i> Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% 
+                            let currentStudent = null;
+                            let studentTotalRefund = 0;
+                            let grandTotalRefund = 0;
+                            let serialNumber = 1;
+
+                            refunds.forEach((refund, index) => {
+                                if (!currentStudent || currentStudent.uidNumber !== refund.student.uidNumber) {
+                                    // If a new student starts, display the total for the previous student
+                                    if (currentStudent) { %>
+                                        <tr class="student-total">
+                                            <td colspan="10"><strong>Total for <%= currentStudent.fullName %></strong></td>
+                                            <td><strong>₹<%= studentTotalRefund.toLocaleString('en-IN') %></strong></td>
+                                        </tr>
+                                    <% }
+                                    // Reset totals for the new student
+                                    currentStudent = refund.student;
+                                    studentTotalRefund = 0;
+                                }
+                                // Add refund amount to the student's total
+                                studentTotalRefund += refund.refundAmount;
+                                grandTotalRefund += refund.refundAmount;
+                            %>
+                                <tr>
+                                    <td><%= serialNumber++ %></td>
+                                    <td><%= refund.student.uidNumber %></td>
+                                    <td><%= refund.student.fullName %></td>
+                                    <td><%= refund.student.enrollmentNumber %></td>
+                                    <td><%= refund.student.school %></td>
+                                    <td><%= refund.student.blockHostelName %></td>
+                                    <td><%= refund.student.roomNo %></td>
+                                    <td><%= refund.from.toISOString().split('T')[0] %></td>
+                                    <td><%= refund.to.toISOString().split('T')[0] %></td>
+                                    <td><%= refund.daysEligible %></td>
+                                    <td>₹<%= refund.refundAmount.toLocaleString('en-IN') %></td>
+                                </tr>
+                            <% }); %>
+                            <!-- Display the total for the last student -->
+                            <tr class="student-total">
+                                <td colspan="10"><strong>Total for <%= currentStudent.fullName %></strong></td>
+                                <td><strong>₹<%= studentTotalRefund.toLocaleString('en-IN') %></strong></td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr class="grand-total">
+                                <td colspan="10"><strong>Grand Total Refund</strong></td>
+                                <td><strong>₹<%= grandTotalRefund.toLocaleString('en-IN') %></strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</body>
+</html>
+
+<%- include('../partials/footer.ejs') %>

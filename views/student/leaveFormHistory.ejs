@@ -1,0 +1,131 @@
+<%- include('../partials/header.ejs') %>
+
+<link rel="stylesheet" href="/css/student/leaveFormHistory.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<title><%= title %></title>
+<div class="history-container">
+  <div class="history-header">
+    <h2><i class="fas fa-history"></i> Leave Application History</h2>
+    <div class="history-controls">
+      <a href="/student/leave-form" class="btn btn-primary">
+        <i class="fas fa-plus"></i> New Application
+      </a>
+    </div> 
+  </div> 
+
+  <% if (error) { %>
+    <div class="alert alert-error">
+      <i class="fas fa-exclamation-circle"></i> <%= error %>
+    </div>
+  <% } else if (leaveForms.length === 0) { %>
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="fas fa-file-alt"></i>
+      </div>
+      <h3>No Leave Applications Found</h3>
+      <p>You haven't submitted any leave applications yet.</p>
+      <a href="/student/leave-form" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Create First Application
+      </a>
+    </div>
+  <% } else { %>
+    <div class="responsive-table">
+      <table class="history-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Application Details</th>
+            <th>Duration</th>
+            <th>Status</th>
+            <th>Warden</th>
+            <th>Action Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% leaveForms.forEach((form, index) => { %>
+            <tr data-status="<%= form.status %>">
+              <td><%= index + 1 %></td>
+              <td>
+                <div class="application-details">
+                  <div class="detail-main">
+                    <h4 class="detail-reason"><%= form.reason %></h4>
+                  </div>
+                  <div class="detail-secondary">
+                    <div class="detail-item">
+                      <i class="fas fa-map-marker-alt"></i>
+                      <span><%= form.goingTo || 'Not specified' %></span>
+                    </div>
+                    <div class="detail-item">
+                      <i class="fas fa-phone"></i>
+                      <span><%= form.parentContact || 'Not provided' %></span>
+                    </div>
+                    <% if (form.studentComment) { %>
+                      <div class="detail-comment">
+                        <i class="fas fa-comment"></i>
+                        <span><%= form.studentComment %></span>
+                      </div>
+                    <% } %>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="date-range">
+                  <div class="date-item">
+                    <i class="fas fa-calendar-day"></i>
+                    <span><%= new Date(form.from).toLocaleDateString() %></span>
+                  </div>
+                  <div class="date-item">
+                    <i class="fas fa-arrow-right"></i>
+                    <span><%= new Date(form.to).toLocaleDateString() %></span>
+                  </div>
+                  <div class="date-duration">
+                    (<%= Math.ceil((new Date(form.to) - new Date(form.from)) / (1000 * 60 * 60 * 24)) + 1 %> days)
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="status-container">
+                  <span class="status-badge <%= form.status %>">
+                    <i class="<%= 
+                      form.status === 'approved' ? 'fas fa-check-circle' : 
+                      form.status === 'declined' ? 'fas fa-times-circle' : 'fas fa-hourglass-half' 
+                    %>"></i>
+                    <%= form.status.toUpperCase() %>
+                  </span>
+                  <% if (form.editedByStudent) { %>
+                    <span class="status-note">(Edited)</span>
+                  <% } %>
+                  <% if (form.declinedReason) { %>
+                    <div class="status-comment">
+                      <i class="fas fa-comment-exclamation"></i>
+                      <span><%= form.declinedReason %></span>
+                    </div>
+                  <% } %>
+                </div>
+              </td>
+              <td>
+                <% if (form.warden) { %>
+                  <div class="warden-info">
+                    <i class="fas fa-user-shield"></i>
+                    <span><%= form.warden %></span>
+                  </div>
+                <% } %>
+              </td>
+              <td>
+                <% if (form.approvedOrDeclinedAt) { %>
+                  <div class="action-date">
+                    <i class="far fa-clock"></i>
+                    <span><%= new Date(form.approvedOrDeclinedAt).toLocaleDateString() %></span>
+                  </div>
+                <% } %>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</div>
+
+<%- include('../partials/footer.ejs') %>
